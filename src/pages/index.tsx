@@ -58,6 +58,14 @@ export default function Home() {
             )}
             <FiLock className="text-gray-400 absolute bottom-3.5 left-4" />
           </div>
+          <div className="flex mt-1.5 justify-end">
+            <Link
+              href="/forgot-password"
+              className="text-primary underline cursor-pointer text-sm"
+            >
+              Forgot password?
+            </Link>
+          </div>
           <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
             Sign up
           </button>
