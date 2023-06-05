@@ -4,12 +4,14 @@ interface AuthLayoutProp {
   children: React.ReactNode;
   title: string;
   subTitle: string;
+  oAuth?: boolean;
 }
 
 export default function AuthLayout({
   children,
   title,
   subTitle,
+  oAuth = true,
 }: AuthLayoutProp) {
   return (
     <div className="flex min-h-screen">
@@ -27,15 +29,24 @@ export default function AuthLayout({
         <div className="max-w-[1200px]">
           <p className="font-medium text-lg">{title}</p>
           <p className="text-gray-400 text-sm mb-5">{subTitle}</p>
-          <button className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary">
-            <Image src="/goggle.svg" alt="goggle icon" width={25} height={25} />
-            <p className="text-grey ml-3">Continue with goggle</p>
-          </button>
-          <div className="flex items-center gap-5 mt-5">
-            <span className="w-[45%] border border-gray-300" />
-            <p className="text-gray-400">OR</p>
-            <span className="w-[45%] border border-gray-300" />
-          </div>
+          {oAuth && (
+            <>
+              <button className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary">
+                <Image
+                  src="/goggle.svg"
+                  alt="goggle icon"
+                  width={25}
+                  height={25}
+                />
+                <p className="text-grey ml-3">Continue with goggle</p>
+              </button>
+              <div className="flex items-center gap-5 mt-5">
+                <span className="w-[45%] border border-gray-300" />
+                <p className="text-gray-400">OR</p>
+                <span className="w-[45%] border border-gray-300" />
+              </div>
+            </>
+          )}
           {children}
         </div>
       </div>
