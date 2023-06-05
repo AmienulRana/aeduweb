@@ -3,8 +3,11 @@ import { Poppins } from "next/font/google";
 import { AuthLayout } from "@/components/layout";
 import { Input } from "@/components/common/inputs";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <AuthLayout>
       <div className="md:w-[450px] px-4">
@@ -20,11 +23,17 @@ export default function Home() {
           <span className="w-[45%] border border-gray-300" />
         </div>
         <div>
-          <Input label="Email" placeholder="Input your email here" value="" />
+          <Input
+            label="Email"
+            placeholder="Input your email here"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Input
             label="Password"
             placeholder="Input your password here"
-            value=""
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
             Sign up
