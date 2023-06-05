@@ -1,8 +1,16 @@
+import Image from "next/image";
+
 interface AuthLayoutProp {
   children: React.ReactNode;
+  title: string;
+  subTitle: string;
 }
 
-export default function AuthLayout({ children }: AuthLayoutProp) {
+export default function AuthLayout({
+  children,
+  title,
+  subTitle,
+}: AuthLayoutProp) {
   return (
     <div className="flex min-h-screen">
       <div className="w-1/4 py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
@@ -16,7 +24,20 @@ export default function AuthLayout({ children }: AuthLayoutProp) {
         </div>
       </div>
       <div className="flex-1 flex justify-center items-center">
-        <div className="max-w-[1200px]">{children}</div>
+        <div className="max-w-[1200px]">
+          <p className="font-medium text-lg">{title}</p>
+          <p className="text-gray-400 text-sm mb-5">{subTitle}</p>
+          <button className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary">
+            <Image src="/goggle.svg" alt="goggle icon" width={25} height={25} />
+            <p className="text-grey ml-3">Continue with goggle</p>
+          </button>
+          <div className="flex items-center gap-5 mt-5">
+            <span className="w-[45%] border border-gray-300" />
+            <p className="text-gray-400">OR</p>
+            <span className="w-[45%] border border-gray-300" />
+          </div>
+          {children}
+        </div>
       </div>
     </div>
   );
