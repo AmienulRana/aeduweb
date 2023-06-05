@@ -4,10 +4,13 @@ import { AuthLayout } from "@/components/layout";
 import { Input } from "@/components/common/inputs";
 import Link from "next/link";
 import { useState } from "react";
+import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
   return (
     <AuthLayout>
       <div className="md:w-[450px] px-4">
@@ -23,18 +26,38 @@ export default function Home() {
           <span className="w-[45%] border border-gray-300" />
         </div>
         <div>
-          <Input
-            label="Email"
-            placeholder="Input your email here"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            label="Password"
-            placeholder="Input your password here"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <Input
+              label="Email"
+              placeholder="Input your email here"
+              className="pl-10"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
+          </div>
+          <div className="relative">
+            <Input
+              label="Password"
+              placeholder="Input your password here"
+              className="pl-10"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type={showPassword ? "text" : "password"}
+            />
+            {showPassword ? (
+              <FiEye
+                className="text-gray-400 cursor-pointer absolute bottom-3.5 right-4"
+                onClick={handleShowPassword}
+              />
+            ) : (
+              <FiEyeOff
+                className="text-gray-400 cursor-pointer absolute bottom-3.5 right-4"
+                onClick={handleShowPassword}
+              />
+            )}
+            <FiLock className="text-gray-400 absolute bottom-3.5 left-4" />
+          </div>
           <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
             Sign up
           </button>
