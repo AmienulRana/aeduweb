@@ -23,12 +23,16 @@ const Input: FC<InputProps> = (props: InputProps) => {
 
   const concatClassName = [
     className,
-    "w-full border border-solid border-secondary py-3 px-4 rounded text-xs bg-secondary focus:bg-white outline-0",
+    "w-full border border-solid border-secondary py-3 px-4 rounded text-xs outline-0",
   ].join(" ");
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {label && <p className="font-semibold mt-5 mb-4">{label}</p>}
+      {label && (
+        <p className="font-semibold mt-5 mb-1.5 text-sm text-gray-400 w-full">
+          {label}
+        </p>
+      )}
       <input
         className={concatClassName}
         placeholder={placeholder}
