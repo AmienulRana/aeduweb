@@ -12,7 +12,7 @@ export default function Home() {
     <AuthLayout>
       <div className="md:w-[450px] px-4">
         <p className="font-medium text-lg">Sign in</p>
-        <p className="text-gray-400 text-sm mb-3.5">Login to your account</p>
+        <p className="text-gray-400 text-sm mb-5">Login to your account</p>
         <button className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary">
           <Image src="/goggle.svg" alt="goggle icon" width={25} height={25} />
           <p className="text-grey ml-3">Continue with goggle</p>
