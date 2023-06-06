@@ -11,7 +11,23 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
   const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputEmail = event.target.value;
+    setEmail(inputEmail);
+    if (inputEmail !== "") {
+      setIsValidEmail(validateEmail(inputEmail));
+    } else {
+      setIsValidEmail(true);
+    }
+  };
+  const validateEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|id|co\.id|io|co)$/;
+    return regex.test(email);
+  };
+
   return (
     <AuthLayout title="Sign up" subTitle="Let's get started with us">
       <div className="md:w-[450px] px-4">
@@ -21,10 +37,18 @@ export default function Home() {
             placeholder="Input your email here"
             className="pl-10"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleEmailChange(e)
+            }
           />
           <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
         </div>
+        {!isValidEmail && (
+          <p className="text-red-500 text-xs mt-2 mb-3">
+            Please enter a valid email with allowed domains such as .com, .id,
+            .co.id, or .io
+          </p>
+        )}
         <div className="relative">
           <Input
             label="Password"
@@ -69,9 +93,23 @@ export default function Home() {
           )}
           <FiLock className="text-gray-400 absolute bottom-3.5 left-4" />
         </div>
-        <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-          Sign up
-        </button>
+        {confirmPassword && password !== confirmPassword && (
+          <p className="text-red-500 text-xs mt-2 mb-2">
+            Password and confirm password do not match
+          </p>
+        )}
+        {isValidEmail && email && password && confirmPassword ? (
+          <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
+            Sign up
+          </button>
+        ) : (
+          <button
+            disabled
+            className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4"
+          >
+            Sign up
+          </button>
+        )}
         <p className="text-gray-400 mt-3">
           Already have a account?{" "}
           <Link href="/" className="text-primary underline">
