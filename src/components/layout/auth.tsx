@@ -16,7 +16,12 @@ export default function AuthLayout({
   return (
     <div className="flex min-h-screen">
       <div className="w-[30%] hidden md:block py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
-        <p className="text-lg font-semibold">AEDU</p>
+        <Image
+          src="/aedu-white.svg"
+          alt="logo aedu white"
+          width={80}
+          height={80}
+        />
         <div className="translate-y-[100px]">
           <h1 className="text-3xl">Start your professional journey with us.</h1>
           <p className="text-sm mt-5">
