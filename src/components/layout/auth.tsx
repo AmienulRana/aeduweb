@@ -15,8 +15,8 @@ export default function AuthLayout({
 }: AuthLayoutProp) {
   return (
     <div className="flex min-h-screen">
-      <div className="w-1/4 hidden md:block py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
-        <p className="text-sm font-semibold">AEDU</p>
+      <div className="w-[30%] hidden md:block py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
+        <p className="text-lg font-semibold">AEDU</p>
         <div className="translate-y-[100px]">
           <h1 className="text-3xl">Start your professional journey with us.</h1>
           <p className="text-sm mt-5">
