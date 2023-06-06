@@ -10,7 +10,23 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
   const handleShowPassword = () => setShowPassword(!showPassword);
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputEmail = event.target.value;
+    setEmail(inputEmail);
+    if (inputEmail !== "") {
+      setIsValidEmail(validateEmail(inputEmail));
+    } else {
+      setIsValidEmail(true);
+    }
+  };
+  const validateEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|id|co\.id|io|co)$/;
+    return regex.test(email);
+  };
   return (
     <AuthLayout title="Sign in" subTitle="Login to your account">
       <div className="md:w-[450px] px-4">
@@ -20,10 +36,18 @@ export default function Home() {
             placeholder="Input your email here"
             className="pl-10"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleEmailChange(e)
+            }
           />
           <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
         </div>
+        {!isValidEmail && (
+          <p className="text-red-500 text-xs mt-2 mb-3">
+            Please enter a valid email with allowed domains such as .com, .id,
+            .co.id, or .io
+          </p>
+        )}
         <div className="relative">
           <Input
             label="Password"
@@ -54,9 +78,18 @@ export default function Home() {
             Forgot password?
           </Link>
         </div>
-        <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-          Sign in
-        </button>
+        {isValidEmail && email && password ? (
+          <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
+            Sign up
+          </button>
+        ) : (
+          <button
+            disabled
+            className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4"
+          >
+            Sign up
+          </button>
+        )}
         <p className="text-gray-400 mt-3">
           Don&apos;t have a account?{" "}
           <Link href="/sign-up" className="text-primary underline">
