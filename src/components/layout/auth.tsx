@@ -22,12 +22,23 @@ export default function AuthLayout({
           width={80}
           height={80}
         />
-        <div className="translate-y-[100px]">
-          <h1 className="text-3xl">Start your professional journey with us.</h1>
+        <div className="mt-[60px] mb-10">
+          <h1 className="text-4xl">Start your professional journey with us.</h1>
           <p className="text-sm mt-5">
             discover tailored made courses and community of experts and learners
             to expand your learning experience
           </p>
+        </div>
+
+        <div className="relative">
+          <Image
+            src="/highlight.png"
+            height={215}
+            width={215}
+            alt="highlight"
+            style={{ width: "100%" }}
+          />
+          <span className="block absolute opacity-60 top-0 left-0 w-full h-full bg-primary" />
         </div>
       </div>
       <div className="flex-1 flex justify-center items-center">
