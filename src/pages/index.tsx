@@ -85,7 +85,7 @@ export default function Home() {
         ) : (
           <button
             disabled
-            className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4"
+            className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
           >
             Sign up
           </button>
