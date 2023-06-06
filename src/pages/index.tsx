@@ -55,7 +55,7 @@ export default function Home() {
           </Link>
         </div>
         <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-          Sign up
+          Sign in
         </button>
         <p className="text-gray-400 mt-3">
           Don&apos;t have a account?{" "}
