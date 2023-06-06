@@ -79,9 +79,15 @@ export default function Home() {
           </Link>
         </div>
         {isValidEmail && email && password ? (
-          <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-            Sign up
-          </button>
+          <Link
+            href="https://portal-aedu.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
+              Sign up
+            </button>
+          </Link>
         ) : (
           <button
             disabled
