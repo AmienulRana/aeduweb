@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import axios from "axios";
 import { URL_API } from "@/config";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,10 @@ export default function Home() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [success, setSuccess] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,17 +36,18 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     try {
-      console.log("tes");
       const payload = {
         email,
         password,
         passConfirm: confirmPassword,
       };
-      const response = await axios.post(`${URL_API}/register`, { ...payload });
-      console.log(response);
+      const response = await axios.post(`/api/auth/register`, { ...payload });
+      router.push("/");
     } catch (error) {
-      console.log(error);
+      setSuccess(false);
+      setIsLoading(false);
     }
   };
 
@@ -115,9 +121,17 @@ export default function Home() {
             Password and confirm password do not match
           </p>
         )}
+        {!success && (
+          <p className="text-red-500 text-xs mt-2 mb-2">
+            Failed to register account
+          </p>
+        )}
         {isValidEmail && email && password && confirmPassword ? (
           <button
-            className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4"
+            className={`text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4 ${
+              isLoading && "opacity-70"
+            }`}
+            disabled={isLoading}
             onClick={() => handleSubmit()}
           >
             Sign up
