@@ -5,6 +5,7 @@ import { Input } from "@/components/common/inputs";
 import Link from "next/link";
 import { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
+import { TYPOGRAPHY } from "@/data/typhography";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -44,8 +45,7 @@ export default function Home() {
         </div>
         {!isValidEmail && (
           <p className="text-red-500 text-xs mt-2 mb-3">
-            Please enter a valid email with allowed domains such as .com, .id,
-            .co.id, or .io
+            {TYPOGRAPHY.INVALID_EMAIL}
           </p>
         )}
         <div className="relative">
@@ -75,7 +75,7 @@ export default function Home() {
             href="/forgot-password"
             className="text-primary underline cursor-pointer text-sm"
           >
-            Forgot password?
+            {TYPOGRAPHY.FORGOT_PASSWORD}
           </Link>
         </div>
         {isValidEmail && email && password ? (
@@ -85,7 +85,7 @@ export default function Home() {
             rel="noreferrer"
           >
             <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-              Sign up
+              {TYPOGRAPHY.SIGN_UP}
             </button>
           </Link>
         ) : (
@@ -93,13 +93,13 @@ export default function Home() {
             disabled
             className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
           >
-            Sign up
+            {TYPOGRAPHY.SIGN_UP}
           </button>
         )}
         <p className="text-gray-400 mt-3">
-          Don&apos;t have a account?{" "}
+          {TYPOGRAPHY.NOT_HAVE_ACCOUNT}
           <Link href="/sign-up" className="text-primary underline">
-            Create new Account
+            {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
           </Link>
         </p>
       </div>

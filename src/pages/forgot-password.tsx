@@ -3,6 +3,7 @@ import { Input } from "@/components/common/inputs";
 import Link from "next/link";
 import { useState } from "react";
 import { FiMail } from "react-icons/fi";
+import { TYPOGRAPHY } from "@/data/typhography";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -42,8 +43,7 @@ export default function Home() {
         </div>
         {!isValidEmail && (
           <p className="text-red-500 text-xs mt-2 mb-3">
-            Please enter a valid email with allowed domains such as .com, .id,
-            .co.id, or .io
+            {TYPOGRAPHY.INVALID_EMAIL}
           </p>
         )}
         <div className="flex mt-1.5 justify-end">
@@ -51,25 +51,25 @@ export default function Home() {
             href="/"
             className="text-primary underline cursor-pointer text-sm"
           >
-            Back to login
+            {TYPOGRAPHY.BACK_TO_LOGIN}
           </Link>
         </div>
         {isValidEmail && email ? (
           <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-            Reset Password
+            {TYPOGRAPHY.RESET_PASSWORD}
           </button>
         ) : (
           <button
             disabled
             className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
           >
-            Reset Password
+            {TYPOGRAPHY.RESET_PASSWORD}
           </button>
         )}
         <p className="text-gray-400 mt-3">
-          Don&apos;t have a account?{" "}
+          {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}
           <Link href="/sign-up" className="text-primary underline">
-            Create new Account
+            {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
           </Link>
         </p>
       </div>

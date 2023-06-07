@@ -5,6 +5,7 @@ import { Input } from "@/components/common/inputs";
 import Link from "next/link";
 import { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
+import { TYPOGRAPHY } from "@/data/typhography";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -66,25 +67,25 @@ export default function ResetPassword() {
         </div>
         {confirmPassword && password !== confirmPassword && (
           <p className="text-red-500 text-xs mt-2 mb-2">
-            Password and confirm password do not match
+            {TYPOGRAPHY.INVALID_PASSWORD}
           </p>
         )}
         {confirmPassword && password === confirmPassword ? (
           <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
-            Continue
+            {TYPOGRAPHY.CONTINUE}
           </button>
         ) : (
           <button
             disabled
             className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
           >
-            Continue
+            {TYPOGRAPHY.CONTINUE}
           </button>
         )}
         <p className="text-gray-400 mt-3">
-          Remember your password?{" "}
+          {TYPOGRAPHY.REMEMBER_PASSWORD}{" "}
           <Link href="/" className="text-primary underline">
-            Sign in
+            {TYPOGRAPHY.SIGN_IN}
           </Link>
         </p>
       </div>
