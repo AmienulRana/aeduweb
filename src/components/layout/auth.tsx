@@ -32,16 +32,18 @@ export default function AuthLayout({
         />
         <div className="md:flex flex-col justify-center h-full">
           <div className="lg:mt-[60px] mb-10">
-            <h1 className="text-4xl">{TYPOGRAPHY.INTRODUCTION_TITLE}</h1>
-            <p className="text-sm mt-5">{TYPOGRAPHY.INTRODUCTION_DESC}</p>
+            <h1 className="lg:text-4xl md:text-2xl">
+              {TYPOGRAPHY.INTRODUCTION_TITLE}
+            </h1>
+            <p className="mt-5">{TYPOGRAPHY.INTRODUCTION_DESC}</p>
           </div>
 
           <div className="relative">
             <img
               src="/highlight-2.png"
               alt="highlight"
-              className="object-cover h-[255px] rounded-xl"
-              style={{ width: "100%", height: "215px !important" }}
+              className="object-cover md:h-[210px] rounded-xl"
+              style={{ width: "100%" }}
             />
             <span className="block absolute opacity-60 top-0 left-0 w-full h-full bg-primary" />
           </div>
