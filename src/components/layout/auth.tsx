@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { TYPOGRAPHY } from "@/data/typhography";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -31,13 +32,8 @@ export default function AuthLayout({
         />
         <div className="md:flex flex-col justify-center h-full">
           <div className="lg:mt-[60px] mb-10">
-            <h1 className="text-4xl">
-              Start your professional journey with us.
-            </h1>
-            <p className="text-sm mt-5">
-              discover tailored made courses and community of experts and
-              learners to expand your learning experience
-            </p>
+            <h1 className="text-4xl">{TYPOGRAPHY.INTRODUCTION_TITLE}</h1>
+            <p className="text-sm mt-5">{TYPOGRAPHY.INTRODUCTION_DESC}</p>
           </div>
 
           <div className="relative">
@@ -68,11 +64,11 @@ export default function AuthLayout({
                   width={25}
                   height={25}
                 />
-                <p className="text-grey ml-3">Continue with goggle</p>
+                <p className="text-grey ml-3">{TYPOGRAPHY.GOOGLE_SIGNIN}</p>
               </button>
               <div className="flex items-center gap-5 mt-5">
                 <span className="w-[45%] border border-gray-300" />
-                <p className="text-gray-400">OR</p>
+                <p className="text-gray-400">{TYPOGRAPHY.OR}</p>
                 <span className="w-[45%] border border-gray-300" />
               </div>
             </>
