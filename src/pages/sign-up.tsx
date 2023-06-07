@@ -5,6 +5,8 @@ import { Input } from "@/components/common/inputs";
 import Link from "next/link";
 import { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
+import axios from "axios";
+import { URL_API } from "@/config";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -28,9 +30,24 @@ export default function Home() {
     return regex.test(email);
   };
 
+  const handleSubmit = async () => {
+    try {
+      console.log("tes");
+      const payload = {
+        email,
+        password,
+        passConfirm: confirmPassword,
+      };
+      const response = await axios.post(`${URL_API}/register`, { ...payload });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthLayout title="Sign up" subTitle="Let's get started with us">
-      <div className="md:w-[450px] px-4">
+      <div className="md:w-[450px] md:px-4">
         <div className="relative">
           <Input
             label="Email"
@@ -44,7 +61,7 @@ export default function Home() {
           <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
         </div>
         {!isValidEmail && (
-          <p className="text-red-500 text-xs mt-2 mb-3">
+          <p className="text-red-500 text-xs px-4 mt-2">
             Please enter a valid email with allowed domains such as .com, .id,
             .co.id, or .io
           </p>
@@ -99,7 +116,10 @@ export default function Home() {
           </p>
         )}
         {isValidEmail && email && password && confirmPassword ? (
-          <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
+          <button
+            className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4"
+            onClick={() => handleSubmit()}
+          >
             Sign up
           </button>
         ) : (
