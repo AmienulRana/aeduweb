@@ -37,12 +37,11 @@ export default function AuthLayout({
           </div>
 
           <div className="relative">
-            <Image
-              src="/highlight.png"
-              height={215}
-              width={215}
+            <img
+              src="/highlight-2.png"
               alt="highlight"
-              style={{ width: "100%" }}
+              className="object-cover h-[255px] rounded-xl"
+              style={{ width: "100%", height: "215px !important" }}
             />
             <span className="block absolute opacity-60 top-0 left-0 w-full h-full bg-primary" />
           </div>
