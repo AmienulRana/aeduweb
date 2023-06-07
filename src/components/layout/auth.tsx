@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -13,6 +14,11 @@ export default function AuthLayout({
   subTitle,
   oAuth = true,
 }: AuthLayoutProp) {
+  const { data: session } = useSession();
+
+  if (session) {
+    window.open("https://learning.aedu.id");
+  }
   return (
     <div className="flex min-h-screen">
       <div className="w-[30%] hidden md:block py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
@@ -47,7 +53,10 @@ export default function AuthLayout({
           <p className="text-gray-400 text-sm mb-5">{subTitle}</p>
           {oAuth && (
             <>
-              <button className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary">
+              <button
+                onClick={() => signIn()}
+                className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary"
+              >
                 <Image
                   src="/goggle.svg"
                   alt="goggle icon"
