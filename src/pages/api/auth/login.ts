@@ -24,7 +24,6 @@ export default async function handler(
       res.status(200).json(response?.data);
     } catch (error: any) {
       res.status(422).json({ message: "Incorrect Email or Password" });
-      console.log(error);
     }
   }
   res.status(200).json({ name: "John Doe" });

@@ -4,10 +4,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiMail } from "react-icons/fi";
 import { TYPOGRAPHY } from "@/data/typhography";
+import axios from "axios";
+import { URL_LEARNING_AEDU } from "@/config";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputEmail = event.target.value;
@@ -21,6 +27,33 @@ export default function Home() {
   const validateEmail = (email: string) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|id|co\.id|io|co)$/;
     return regex.test(email);
+  };
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+    try {
+      const payload = {
+        email,
+      };
+      const response = await axios.post(`/api/auth/forgot-password`, {
+        ...payload,
+      });
+      // router.push("/");
+      if (response.data.errors) {
+        setErrorMessage(
+          "We have sent link to reset password, please check your email"
+        );
+        setIsLoading(false);
+        return;
+      }
+      localStorage.setItem("token", response.data?.token);
+      setIsLoading(false);
+      router.push("/reset-password");
+    } catch (error: any) {
+      setErrorMessage(error?.response?.data?.message || "Failed to sent link!");
+      setIsLoading(false);
+    }
   };
   return (
     <AuthLayout
@@ -55,7 +88,13 @@ export default function Home() {
           </Link>
         </div>
         {isValidEmail && email ? (
-          <button className="text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4">
+          <button
+            className={`text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-70 bg-primary py-3 px-4 ${
+              isLoading && "opacity-70"
+            }`}
+            disabled={isLoading}
+            onClick={() => handleSubmit()}
+          >
             {TYPOGRAPHY.RESET_PASSWORD}
           </button>
         ) : (
@@ -65,6 +104,9 @@ export default function Home() {
           >
             {TYPOGRAPHY.RESET_PASSWORD}
           </button>
+        )}
+        {errorMessage && (
+          <p className="text-red-500 text-xs mt-2 mb-3">{errorMessage}!</p>
         )}
         <p className="text-gray-400 mt-3">
           {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}

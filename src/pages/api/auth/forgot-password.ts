@@ -13,15 +13,14 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const { email, password, passConfirm } = req.body;
-      const response = await axios.post(`${URL_API}/register`, {
+      const { email, password } = req.body;
+      const response = await axios.post(`${URL_API}/forgotPass`, {
         email,
-        password,
-        passConfirm,
       });
       res.status(200).json(response?.data);
-    } catch (error) {
-      res.status(422).json({ message: "Failed to register" });
+    } catch (error: any) {
+      res.status(422).json(error?.response);
     }
   }
+  res.status(200).json({ name: "John Doe" });
 }
