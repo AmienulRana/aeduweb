@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { TYPOGRAPHY } from "@/data/typhography";
+import { useEffect } from "react";
+import axios from "axios";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -20,6 +22,19 @@ export default function AuthLayout({
   if (session) {
     window.open("https://learning.aedu.id");
   }
+  useEffect(() => {
+    const handleCheckLogin = async () => {
+      try {
+        const response = await axios.get(`/api/auth/check-auth`);
+        if (response?.data?.isLogged) {
+          window.location.href = "https://learning.aedu.id";
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleCheckLogin();
+  }, []);
   return (
     <div className="flex min-h-screen">
       <div className="lg:w-[30%] md:w-[35%] relative md:block hidden justify-center py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
