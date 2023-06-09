@@ -45,7 +45,9 @@ export default function Home() {
       };
       const response = await axios.post(`/api/auth/login`, { ...payload });
       // router.push("/");
-      window.location.href = URL_LEARNING_AEDU;
+      window.location.href = `${URL_LEARNING_AEDU}/${
+        router.query["prev-page"] || "/"
+      }`;
       // console.log(response);
       setIsLoading(false);
     } catch (error: any) {
