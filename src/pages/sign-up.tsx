@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 import { URL_API } from "@/config";
 import { useRouter } from "next/router";
 
@@ -43,8 +44,11 @@ export default function Home() {
         password,
         passConfirm: confirmPassword,
       };
-      const response = await axios.post(`/api/auth/register`, { ...payload });
-      router.push("/");
+      const response = await axios.post(`${URL_API}/register`, { ...payload });
+      if (response.status === 200) {
+        router.push("/");
+      }
+      setIsLoading(false);
     } catch (error) {
       setSuccess(false);
       setIsLoading(false);
