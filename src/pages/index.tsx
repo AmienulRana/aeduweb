@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import { AuthLayout } from "@/components/layout";
 import { Input } from "@/components/common/inputs";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { TYPOGRAPHY } from "@/data/typhography";
 import axios from "axios";
