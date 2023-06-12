@@ -3,10 +3,10 @@ export const TYPOGRAPHY = {
   SIGN_UP: "Sign up",
   CONTINUE: "CONTINUE",
   FORGOT_PASSWORD: "Forgot Password?",
-  INTRODUCTION_TITLE: "Start your professional journey with us.",
+  INTRODUCTION_TITLE: "Starts your professional journey with us.",
   INTRODUCTION_DESC:
     "discover tailored made courses and community of experts and  learners to expand your learning experience",
-  GOOGLE_SIGNIN: "Continue with goggle",
+  GOOGLE_SIGNIN: "Continue with google",
   OR: "OR",
   RESET_PASSWORD: "Reset Password",
   NOT_HAVE_ACCOUNT: "Don't have a account?",
