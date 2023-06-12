@@ -7,8 +7,9 @@ import { useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { TYPOGRAPHY } from "@/data/typhography";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 import { useRouter } from "next/router";
-import { URL_LEARNING_AEDU } from "@/config";
+import { URL_API, URL_LEARNING_AEDU } from "@/config";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -43,12 +44,13 @@ export default function Home() {
         email,
         password,
       };
-      const response = await axios.post(`/api/auth/login`, { ...payload });
-      // router.push("/");
-      window.location.href = `${URL_LEARNING_AEDU}/${
-        router.query["prev-page"] || "/"
-      }`;
-      // console.log(response);
+      const response = await axios.post(`${URL_API}/login`, { ...payload });
+      if (response.status === 200) {
+        await axios.post("/api/set-cookie", response?.data?.token);
+        window.location.href = `${URL_LEARNING_AEDU}/${
+          router.query["prev-page"] || "/"
+        }`;
+      }
       setIsLoading(false);
     } catch (error: any) {
       setErrorMessage(
