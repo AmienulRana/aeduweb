@@ -18,7 +18,7 @@ export default async function setCookie(
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("jwtToken", req.body.token, {
-          domain: MODE === "dev" ? "localhost" : ".aedu.id",
+          domain: process.env.MODE === "dev" ? "localhost" : ".aedu.id",
           path: "/",
           httpOnly: true,
           maxAge: 60 * 60 * 24 * 1,
