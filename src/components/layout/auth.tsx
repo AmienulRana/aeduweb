@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { TYPOGRAPHY } from "@/data/typhography";
 import { useEffect } from "react";
 import axios from "axios";
+import { MODE } from "@/config";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -20,7 +21,8 @@ export default function AuthLayout({
   const { data: session } = useSession();
 
   if (session) {
-    window.open("https://learning.aedu.id");
+    window.location.href =
+      MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
   }
   useEffect(() => {
     const handleCheckLogin = async () => {
