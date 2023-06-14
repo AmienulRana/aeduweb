@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { TYPOGRAPHY } from "@/data/typhography";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { MODE, URL_API } from "@/config";
+import { MODE, URL_API, URL_LEARNING_AEDU } from "@/config";
+import { useRouter } from "next/router";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -19,11 +20,66 @@ export default function AuthLayout({
   oAuth = true,
 }: AuthLayoutProp) {
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   // if (session) {
   //   window.location.href =
   //     MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
   // }
+  useEffect(() => {
+    console.log(session);
+    const handleRegister = async () => {
+      setIsLoading(true);
+      try {
+        const payload = {
+          email: session?.user?.email,
+          password: session?.user?.name,
+          passConfirm: session?.user?.name,
+        };
+        const response = await axios.post(`${URL_API}/register`, {
+          ...payload,
+        });
+        if (response.status === 200) {
+          handleLogin({
+            email: session?.user?.email,
+            password: session?.user?.name,
+          });
+        }
+        setIsLoading(false);
+      } catch (error) {
+        handleLogin({
+          email: session?.user?.email,
+          password: session?.user?.name,
+        });
+        setIsLoading(false);
+      }
+    };
+
+    const handleLogin = async ({ email, password }: any) => {
+      setIsLoading(true);
+      // setErrorMessage("");
+      try {
+        const payload = {
+          email,
+          password,
+        };
+        const response = await axios.post(`${URL_API}/login`, { ...payload });
+        if (response.status === 200) {
+          // await axios.post("/api/set-cookie", { token: response?.data?.token });
+          window.location.href = `${URL_LEARNING_AEDU}/${
+            router.query["prev-page"] || "/"
+          }`;
+        }
+        setIsLoading(false);
+      } catch (error: any) {
+        // setErrorMessage(
+        //   error?.response?.data?.message || "Failed to authentication"
+        // );
+        setIsLoading(false);
+      }
+    };
+  }, [session]);
   useEffect(() => {
     const handleCheckLogin = async () => {
       try {
