@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FiMail } from "react-icons/fi";
 import { TYPOGRAPHY } from "@/data/typhography";
 import axios from "axios";
-import { URL_LEARNING_AEDU } from "@/config";
+import { URL_API, URL_LEARNING_AEDU } from "@/config";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -36,21 +36,15 @@ export default function Home() {
       const payload = {
         email,
       };
-      const response = await axios.post(`/api/auth/forgot-password`, {
+      const response = await axios.post(`${URL_API}/forgotPass`, {
         ...payload,
       });
-      // router.push("/");
-      if (response.data.errors) {
-        setErrorMessage(
-          "We have sent link to reset password, please check your email"
-        );
-        setIsLoading(false);
-        return;
-      }
-      localStorage.setItem("token", response.data?.token);
       setIsLoading(false);
-      router.push("/reset-password");
+      if (response.status === 200) {
+        router.push(`/reset-password?token=${response?.data?.token}`);
+      }
     } catch (error: any) {
+      console.log(error);
       setErrorMessage(error?.response?.data?.message || "Failed to sent link!");
       setIsLoading(false);
     }
