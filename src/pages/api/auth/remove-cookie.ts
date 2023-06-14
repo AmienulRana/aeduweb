@@ -9,13 +9,22 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     "__Host-next-auth.csrf-token",
     "__Secure-next-auth.session-token",
   ];
-
-  cookiesToRemove.forEach((cookieName) => {
-    destroyCookie({ res }, cookieName, {
+  res.setHeader(
+    "Set-Cookie",
+    serialize("__Secure-next-auth.session-token", "", {
+      domain: ".aedu.id",
       path: "/",
-      domain: ".aedu.id", // Ganti dengan domain yang sesuai
-    });
-  });
+      httpOnly: true,
+      maxAge: 1,
+    })
+  );
+
+  //   cookiesToRemove.forEach((cookieName) => {
+  //     destroyCookie({ res }, cookieName, {
+  //       path: "/",
+  //       domain: ".aedu.id", // Ganti dengan domain yang sesuai
+  //     });
+  //   });
   return res.status(200).json({ message: "success" });
   // Menanggapi permintaan API lainnya
   // ...
