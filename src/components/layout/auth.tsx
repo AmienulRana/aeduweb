@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { TYPOGRAPHY } from "@/data/typhography";
 import { useEffect } from "react";
 import axios from "axios";
-import { MODE } from "@/config";
+import { MODE, URL_API } from "@/config";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -27,8 +27,8 @@ export default function AuthLayout({
   useEffect(() => {
     const handleCheckLogin = async () => {
       try {
-        const response = await axios.get(`/api/auth/check-auth`);
-        if (response?.data?.isLogged) {
+        const response = await axios.get(`${URL_API}/getToken`);
+        if (!response.data.token) {
           window.location.href =
             MODE === "dev"
               ? "http://localhost:3001"
