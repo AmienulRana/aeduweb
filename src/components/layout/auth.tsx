@@ -79,6 +79,7 @@ export default function AuthLayout({
         setIsLoading(false);
       }
     };
+    handleRegister();
   }, [session]);
   useEffect(() => {
     const handleCheckLogin = async () => {
