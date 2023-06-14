@@ -46,7 +46,7 @@ export default function Home() {
       };
       const response = await axios.post(`${URL_API}/login`, { ...payload });
       if (response.status === 200) {
-        await axios.post("/api/set-cookie", { token: response?.data?.token });
+        // await axios.post("/api/set-cookie", { token: response?.data?.token });
         window.location.href = `${URL_LEARNING_AEDU}/${
           router.query["prev-page"] || "/"
         }`;
