@@ -28,7 +28,8 @@ export default function AuthLayout({
     const handleCheckLogin = async () => {
       try {
         const response = await axios.get(`${URL_API}/getToken`);
-        if (!response.data.token) {
+        console.log(response);
+        if (response.data.token) {
           window.location.href =
             MODE === "dev"
               ? "http://localhost:3001"
