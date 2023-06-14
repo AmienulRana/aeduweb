@@ -20,16 +20,19 @@ export default function AuthLayout({
 }: AuthLayoutProp) {
   const { data: session } = useSession();
 
-  if (session) {
-    window.location.href =
-      MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
-  }
+  // if (session) {
+  //   window.location.href =
+  //     MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
+  // }
   useEffect(() => {
     const handleCheckLogin = async () => {
       try {
         const response = await axios.get(`/api/auth/check-auth`);
         if (response?.data?.isLogged) {
-          window.location.href = "https://learning.aedu.id";
+          window.location.href =
+            MODE === "dev"
+              ? "http://localhost:3001"
+              : "https://learning.aedu.id";
         }
       } catch (error) {
         console.log(error);
