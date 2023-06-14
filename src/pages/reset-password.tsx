@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
 import { TYPOGRAPHY } from "@/data/typhography";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { URL_API } from "@/config";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState("");
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -26,17 +29,21 @@ export default function ResetPassword() {
     setIsLoading(true);
     setErrorMessage("");
     try {
+      const token = router.query.token;
       const payload = {
-        token,
         newPass: password,
-        confirmnewPass: confirmPassword,
+        newPassConfirm: confirmPassword,
       };
-      const response = await axios.post(`/api/auth/change-password`, {
-        ...payload,
-      });
-      // router.push("/");
+      const response = await axios.post(
+        `${URL_API}/changePassManual/${token}`,
+        {
+          ...payload,
+        }
+      );
+      if (response.status === 200) {
+        router.push("/");
+      }
       // window.location.href = URL_LEARNING_AEDU;
-      console.log(response);
       setIsLoading(false);
     } catch (error: any) {
       console.log(error);
