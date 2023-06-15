@@ -27,60 +27,62 @@ export default function AuthLayout({
   //   window.location.href =
   //     MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
   // }
-  // useEffect(() => {
-  //   console.log(session);
-  //   const handleRegister = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const payload = {
-  //         email: session?.user?.email,
-  //         password: session?.user?.name,
-  //         passConfirm: session?.user?.name,
-  //       };
-  //       const response = await axios.post(`${URL_API}/register`, {
-  //         ...payload,
-  //       });
-  //       if (response.status === 200) {
-  //         handleLogin({
-  //           email: session?.user?.email,
-  //           password: session?.user?.name,
-  //         });
-  //       }
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       handleLogin({
-  //         email: session?.user?.email,
-  //         password: session?.user?.name,
-  //       });
-  //       setIsLoading(false);
-  //     }
-  //   };
+  console.log(session);
+  useEffect(() => {
+    const handleRegister = async () => {
+      setIsLoading(true);
+      try {
+        const payload = {
+          email: session?.user?.email,
+          password: session?.user?.name,
+          passConfirm: session?.user?.name,
+        };
+        const response = await axios.post(`${URL_API}/goog_reg`, {
+          ...payload,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          // handleLogin({
+          //   email: session?.user?.email,
+          //   password: session?.user?.name,
+          // });
+        }
+        setIsLoading(false);
+      } catch (error) {
+        // handleLogin({
+        //   email: session?.user?.email,
+        //   password: session?.user?.name,
+        // });
+        console.log(error);
+        setIsLoading(false);
+      }
+    };
 
-  //   const handleLogin = async ({ email, password }: any) => {
-  //     setIsLoading(true);
-  //     // setErrorMessage("");
-  //     try {
-  //       const payload = {
-  //         email,
-  //         password,
-  //       };
-  //       const response = await axios.post(`${URL_API}/login`, { ...payload });
-  //       if (response.status === 200) {
-  //         // await axios.post("/api/set-cookie", { token: response?.data?.token });
-  //         window.location.href = `${URL_LEARNING_AEDU}/${
-  //           router.query["prev-page"] || "/"
-  //         }`;
-  //       }
-  //       setIsLoading(false);
-  //     } catch (error: any) {
-  //       // setErrorMessage(
-  //       //   error?.response?.data?.message || "Failed to authentication"
-  //       // );
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   handleRegister();
-  // }, [session]);
+    const handleLogin = async ({ email, password }: any) => {
+      setIsLoading(true);
+      // setErrorMessage("");
+      try {
+        const payload = {
+          email,
+          password,
+        };
+        const response = await axios.post(`${URL_API}/login`, { ...payload });
+        if (response.status === 200) {
+          // await axios.post("/api/set-cookie", { token: response?.data?.token });
+          window.location.href = `${URL_LEARNING_AEDU}/${
+            router.query["prev-page"] || "/"
+          }`;
+        }
+        setIsLoading(false);
+      } catch (error: any) {
+        // setErrorMessage(
+        //   error?.response?.data?.message || "Failed to authentication"
+        // );
+        setIsLoading(false);
+      }
+    };
+    handleRegister();
+  }, [session]);
   useEffect(() => {
     const handleCheckLogin = async () => {
       try {
