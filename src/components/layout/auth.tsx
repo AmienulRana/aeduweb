@@ -1,5 +1,7 @@
 import Image from "next/image";
+
 import { useSession, signIn, signOut } from "next-auth/react";
+
 import { TYPOGRAPHY } from "@/data/typhography";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -60,7 +62,6 @@ export default function AuthLayout({
 
     const handleLogin = async ({ email, password }: any) => {
       setIsLoading(true);
-      // setErrorMessage("");
       try {
         const payload = {
           email,
@@ -68,16 +69,12 @@ export default function AuthLayout({
         };
         const response = await axios.post(`${URL_API}/login`, { ...payload });
         if (response.status === 200) {
-          // await axios.post("/api/set-cookie", { token: response?.data?.token });
           window.location.href = `${URL_LEARNING_AEDU}/${
             router.query["prev-page"] || "/"
           }`;
         }
         setIsLoading(false);
       } catch (error: any) {
-        // setErrorMessage(
-        //   error?.response?.data?.message || "Failed to authentication"
-        // );
         setIsLoading(false);
       }
     };
@@ -138,7 +135,7 @@ export default function AuthLayout({
           {oAuth && (
             <>
               <button
-                onClick={() => signIn()}
+                onClick={() => signIn().then((res) => console.log(res))}
                 className="flex border justify-center w-full rounded-md hover:opacity-80 duration-300 items-center bg-transparent py-2 px-4 border-primary"
               >
                 <Image
