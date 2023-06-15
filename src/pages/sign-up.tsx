@@ -16,7 +16,7 @@ export default function Home() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -46,11 +46,26 @@ export default function Home() {
       };
       const response = await axios.post(`${URL_API}/register`, { ...payload });
       if (response.status === 200) {
+        // handleVerifyEmail(res)
+        router.push("/");
+      }
+      console.log(response);
+      setIsLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      setSuccess(error?.response?.data || "Failed to register account");
+      setIsLoading(false);
+    }
+  };
+  const handleVerifyEmail = async (token: string) => {
+    try {
+      const response = await axios.post(`${URL_API}/verify/${token}`);
+      if (response.status === 200) {
         router.push("/");
       }
       setIsLoading(false);
-    } catch (error) {
-      setSuccess(false);
+    } catch (error: any) {
+      setSuccess(error?.response?.data || "Failed to register account");
       setIsLoading(false);
     }
   };
@@ -125,11 +140,7 @@ export default function Home() {
             Password and confirm password do not match
           </p>
         )}
-        {!success && (
-          <p className="text-red-500 text-xs mt-2 mb-2">
-            Failed to register account
-          </p>
-        )}
+        {success && <p className="text-red-500 text-xs mt-2 mb-2">{success}</p>}
         {isValidEmail && email && password && confirmPassword ? (
           <button
             className={`text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4 ${
