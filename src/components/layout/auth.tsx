@@ -25,10 +25,10 @@ export default function AuthLayout({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  // if (session) {
-  //   window.location.href =
-  //     MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
-  // }
+  if (session) {
+    window.location.href =
+      MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
+  }
   console.log(session);
   useEffect(() => {
     const handleRegister = async () => {
@@ -44,17 +44,17 @@ export default function AuthLayout({
         });
         console.log(response);
         if (response.status === 200) {
-          // handleLogin({
-          //   email: session?.user?.email,
-          //   password: session?.user?.name,
-          // });
+          handleLogin({
+            email: session?.user?.email,
+            password: session?.user?.name,
+          });
         }
         setIsLoading(false);
       } catch (error) {
-        // handleLogin({
-        //   email: session?.user?.email,
-        //   password: session?.user?.name,
-        // });
+        handleLogin({
+          email: session?.user?.email,
+          password: session?.user?.name,
+        });
         console.log(error);
         setIsLoading(false);
       }
