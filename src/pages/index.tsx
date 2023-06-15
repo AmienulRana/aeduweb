@@ -53,11 +53,15 @@ export default function Home() {
       }
       setIsLoading(false);
     } catch (error: any) {
+      console.log(error);
       setErrorMessage(
-        error?.response?.data?.message || "Failed to authentication"
+        error?.response?.data?.message ||
+          error?.response?.data ||
+          "Failed to authentication"
       );
       setIsLoading(false);
     }
+    setIsLoading(false);
   };
   return (
     <AuthLayout title="Sign in" subTitle="Login to your account">
