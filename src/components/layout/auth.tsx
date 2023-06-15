@@ -97,7 +97,7 @@ export default function AuthLayout({
         console.log(error);
       }
     };
-    handleCheckLogin();
+    // handleCheckLogin();
   }, []);
   return (
     <div className="flex min-h-screen">
