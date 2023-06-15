@@ -81,7 +81,9 @@ export default function AuthLayout({
         setIsLoading(false);
       }
     };
-    handleRegister();
+    if (session?.user?.email) {
+      handleRegister();
+    }
   }, [session]);
   useEffect(() => {
     const handleCheckLogin = async () => {
