@@ -46,11 +46,11 @@ export default function Home() {
       };
       const response = await axios.post(`${URL_API}/register`, { ...payload });
       if (response.status === 200) {
-        // handleVerifyEmail(res)
-        router.push("/");
+        handleVerifyEmail(response.data.token);
+        // router.push("/");
       }
-      console.log(response);
-      setIsLoading(false);
+      // console.log(response);
+      // setIsLoading(false);
     } catch (error: any) {
       console.log(error);
       setSuccess(error?.response?.data || "Failed to register account");
