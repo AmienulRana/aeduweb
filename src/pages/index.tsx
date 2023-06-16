@@ -135,7 +135,7 @@ export default function Home() {
           <p className="text-red-500 text-xs mt-2 mb-3">{errorMessage}!</p>
         )}
         <p className="text-gray-400 mt-3">
-          {TYPOGRAPHY.NOT_HAVE_ACCOUNT}
+          {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}
           <Link href="/sign-up" className="text-primary underline">
             {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
           </Link>
