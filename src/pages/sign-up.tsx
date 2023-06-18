@@ -16,7 +16,8 @@ export default function Home() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -36,8 +37,16 @@ export default function Home() {
     return regex.test(email);
   };
 
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
   const handleSubmit = async () => {
     setIsLoading(true);
+    setError("");
+    setSuccess(false);
     try {
       const payload = {
         email,
@@ -46,6 +55,8 @@ export default function Home() {
       };
       const response = await axios.post(`${URL_API}/register`, { ...payload });
       if (response.status === 200) {
+        setSuccess(true);
+        resetForm();
         handleVerifyEmail(response.data.token);
         // router.push("/");
       }
@@ -53,7 +64,7 @@ export default function Home() {
       // setIsLoading(false);
     } catch (error: any) {
       console.log(error);
-      setSuccess(error?.response?.data || "Failed to register account");
+      setError(error?.response?.data || "Failed to register account");
       setIsLoading(false);
     }
   };
@@ -61,11 +72,13 @@ export default function Home() {
     try {
       const response = await axios.post(`${URL_API}/verify/${token}`);
       if (response.status === 200) {
-        router.push("/");
+        // setTimeout(() => {
+        //   router.push("/");
+        // }, 3000);
       }
       setIsLoading(false);
     } catch (error: any) {
-      setSuccess(error?.response?.data || "Failed to register account");
+      setError(error?.response?.data || "Failed to register account");
       setIsLoading(false);
     }
   };
@@ -73,6 +86,20 @@ export default function Home() {
   return (
     <AuthLayout title="Sign up" subTitle="Let's get started with us">
       <div className="md:w-[450px] md:px-4">
+        {success && (
+          <p className="text-center border border-primary rounded-md mt-3 text-sm text-primary py-2.5">
+            Please check{" "}
+            <a
+              href="https://gmail.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              your email
+            </a>{" "}
+            to verify your account.
+          </p>
+        )}
         <div className="relative">
           <Input
             label="Email"
@@ -140,7 +167,7 @@ export default function Home() {
             Password and confirm password do not match
           </p>
         )}
-        {success && <p className="text-red-500 text-xs mt-2 mb-2">{success}</p>}
+        {error && <p className="text-red-500 text-xs mt-2 mb-2">{error}</p>}
         {isValidEmail && email && password && confirmPassword ? (
           <button
             className={`text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-80 bg-primary py-3 px-4 ${
