@@ -10,8 +10,8 @@ import { useRouter } from "next/router";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
-  title: string;
-  subTitle: string;
+  title?: string;
+  subTitle?: string;
   oAuth?: boolean;
 }
 
