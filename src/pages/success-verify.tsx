@@ -6,14 +6,14 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function VerifySuccess() {
-  const [time, setTime] = useState(4);
+  const [time, setTime] = useState(10);
   const router = useRouter();
   const handleVerifyEmail = async (token: any) => {
     try {
       const response = await axios.post(`${URL_API}/verify/${token}`);
       if (response.status === 200) {
         // setTimeout(() => {
-        //   router.push("/");
+        // router.push("/");
         // }, 3000);
       }
       // setIsLoading(false);
@@ -26,15 +26,18 @@ export default function VerifySuccess() {
 
   useEffect(() => {
     console.log(router.query.token);
-    handleVerifyEmail(router?.query?.token);
 
-    setInterval(() => {
-      setTime(time !== 0 ? time - 1 : 0);
-    }, 5000);
+    if (router.query) {
+      handleVerifyEmail(router?.query?.token);
+    }
+
+    // setInterval(() => {
+    //   setTime(time - 1);
+    // }, 1000);
     setTimeout(() => {
       router.push("/");
-    }, 5000);
-  }, []);
+    }, 10000);
+  }, [router.query]);
   return (
     <AuthLayout oAuth={false}>
       <div className="flex flex-col justify-center items-center">
