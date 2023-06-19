@@ -34,9 +34,12 @@ export default function ResetPassword() {
         newPass: password,
         newPassConfirm: confirmPassword,
       };
-      const response = await axios.post(`${URL_API}/changePassManual`, {
-        ...payload,
-      });
+      const response = await axios.post(
+        `${URL_API}/changePassManual/${token}`,
+        {
+          ...payload,
+        }
+      );
       if (response.status === 200) {
         router.push("/");
       }
