@@ -4,7 +4,7 @@ import { AuthLayout } from "@/components/layout";
 import { Input } from "@/components/common/inputs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FiMail, FiLock, FiEyeOff, FiEye } from "react-icons/fi";
+import { FiMail, FiLock, FiEyeOff, FiEye, FiUser } from "react-icons/fi";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 import { URL_API } from "@/config";
@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -100,6 +102,32 @@ export default function Home() {
       ) : (
         <AuthLayout title="Sign up" subTitle="Let's get started with us">
           <div className="md:w-[450px] md:px-4">
+            <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-3">
+              <div className="relative">
+                <Input
+                  label="First Name"
+                  placeholder="Input your first name"
+                  className="pl-10"
+                  value={firstName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setFirstName(e.target.value)
+                  }
+                />
+                <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
+              </div>
+              <div className="relative">
+                <Input
+                  label="Last Name"
+                  placeholder="Input your last name"
+                  className="pl-10"
+                  value={lastName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setLastName(e.target.value)
+                  }
+                />
+                <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
+              </div>
+            </div>
             <div className="relative">
               <Input
                 label="Email"
