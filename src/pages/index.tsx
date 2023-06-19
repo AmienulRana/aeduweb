@@ -56,6 +56,7 @@ export default function Home() {
       console.log(error);
       setErrorMessage(
         error?.response?.data?.message ||
+          error?.response?.data?.msg ||
           error?.response?.data ||
           "Failed to authentication"
       );
