@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [success, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -41,7 +42,8 @@ export default function Home() {
       });
       setIsLoading(false);
       if (response.status === 200) {
-        router.push(`/reset-password?token=${response?.data?.token}`);
+        // router.push(`/reset-password?token=${response?.data?.token}`);
+        setIsSuccess(true);
       }
     } catch (error: any) {
       console.log(error);
@@ -50,65 +52,90 @@ export default function Home() {
     }
   };
   return (
-    <AuthLayout
-      oAuth={false}
-      title="Forgot Password?"
-      subTitle="No worries, we'll send you reset insturctions"
-    >
-      <div className="md:w-[450px] px-4">
-        <div className="relative">
-          <Input
-            label="Email"
-            placeholder="Input your email here"
-            className="pl-10"
-            value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleEmailChange(e)
-            }
-          />
-          <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
-        </div>
-        {!isValidEmail && (
-          <p className="text-red-500 text-xs mt-2 mb-3">
-            {TYPOGRAPHY.INVALID_EMAIL}
-          </p>
-        )}
-        <div className="flex mt-1.5 justify-end">
-          <Link
-            href="/"
-            className="text-primary underline cursor-pointer text-sm"
-          >
-            {TYPOGRAPHY.BACK_TO_LOGIN}
-          </Link>
-        </div>
-        {isValidEmail && email ? (
-          <button
-            className={`text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-70 bg-primary py-3 px-4 ${
-              isLoading && "opacity-70"
-            }`}
-            disabled={isLoading}
-            onClick={() => handleSubmit()}
-          >
-            {TYPOGRAPHY.RESET_PASSWORD}
-          </button>
-        ) : (
-          <button
-            disabled
-            className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
-          >
-            {TYPOGRAPHY.RESET_PASSWORD}
-          </button>
-        )}
-        {errorMessage && (
-          <p className="text-red-500 text-xs mt-2 mb-3">{errorMessage}!</p>
-        )}
-        <p className="text-gray-400 mt-3">
-          {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}
-          <Link href="/sign-up" className="text-primary underline">
-            {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
-          </Link>
-        </p>
-      </div>
-    </AuthLayout>
+    <>
+      {success ? (
+        <AuthLayout
+          title="Forgot Password?"
+          oAuth={false}
+          subTitle="Verify your account by checking your email"
+        >
+          <div className="md:w-[450px] md:px-4">
+            <p className="text-center border border-primary rounded-md mt-3 text-sm text-primary py-2.5">
+              Please check{" "}
+              <a
+                href="https://gmail.com"
+                target="_blank"
+                rel="noreferrer"
+                className="underline"
+              >
+                your email
+              </a>{" "}
+              to verify reset your account.
+            </p>
+          </div>
+        </AuthLayout>
+      ) : (
+        <AuthLayout
+          oAuth={false}
+          title="Forgot Password?"
+          subTitle="No worries, we'll send you reset insturctions"
+        >
+          <div className="md:w-[450px] px-4">
+            <div className="relative">
+              <Input
+                label="Email"
+                placeholder="Input your email here"
+                className="pl-10"
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleEmailChange(e)
+                }
+              />
+              <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
+            </div>
+            {!isValidEmail && (
+              <p className="text-red-500 text-xs mt-2 mb-3">
+                {TYPOGRAPHY.INVALID_EMAIL}
+              </p>
+            )}
+            <div className="flex mt-1.5 justify-end">
+              <Link
+                href="/"
+                className="text-primary underline cursor-pointer text-sm"
+              >
+                {TYPOGRAPHY.BACK_TO_LOGIN}
+              </Link>
+            </div>
+            {isValidEmail && email ? (
+              <button
+                className={`text-center font-bold text-white w-full mt-6 rounded-md duration-100 hover:opacity-70 bg-primary py-3 px-4 ${
+                  isLoading && "opacity-70"
+                }`}
+                disabled={isLoading}
+                onClick={() => handleSubmit()}
+              >
+                {TYPOGRAPHY.RESET_PASSWORD}
+              </button>
+            ) : (
+              <button
+                disabled
+                className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
+              >
+                {TYPOGRAPHY.RESET_PASSWORD}
+              </button>
+            )}
+            {errorMessage && (
+              <p className="text-red-500 text-xs mt-2 mb-3">{errorMessage}!</p>
+            )}
+            <p className="text-gray-400 mt-3">
+              {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}
+              <Link href="/sign-up" className="text-primary underline">
+                {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
+              </Link>
+            </p>
+          </div>
+        </AuthLayout>
+      )}
+    </>
   );
 }
