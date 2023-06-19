@@ -51,6 +51,8 @@ export default function Home() {
     setSuccess(true);
     try {
       const payload = {
+        first_name: firstName,
+        last_name: lastName,
         email,
         password,
         passConfirm: confirmPassword,
