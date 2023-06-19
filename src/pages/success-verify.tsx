@@ -10,7 +10,8 @@ export default function VerifySuccess() {
   const router = useRouter();
   const handleVerifyEmail = async (token: any) => {
     try {
-      const response = await axios.post(`${URL_API}/verify/${token}`);
+      console.log(token);
+      const response = await axios.get(`${URL_API}/verify?token=${token}`);
       if (response.status === 200) {
         // setTimeout(() => {
         // router.push("/");
@@ -25,18 +26,18 @@ export default function VerifySuccess() {
   };
 
   useEffect(() => {
-    console.log(router.query.token);
+    // console.log(router.query.token);
 
-    if (router.query) {
+    if (router.query.token) {
       handleVerifyEmail(router?.query?.token);
     }
 
     // setInterval(() => {
     //   setTime(time - 1);
     // }, 1000);
-    setTimeout(() => {
-      router.push("/");
-    }, 10000);
+    // setTimeout(() => {
+    //   router.push("/");
+    // }, 10000);
   }, [router.query]);
   return (
     <AuthLayout oAuth={false}>
