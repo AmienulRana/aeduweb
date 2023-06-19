@@ -57,7 +57,7 @@ export default function Home() {
       if (response.status === 200) {
         setSuccess(true);
         resetForm();
-        handleVerifyEmail(response.data.token);
+        // handleVerifyEmail(response.data.token);
         // router.push("/");
       }
       // console.log(response);
