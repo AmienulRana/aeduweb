@@ -82,7 +82,7 @@ export default function Home() {
     <>
       {success ? (
         <AuthLayout
-          title="Register Pending"
+          title="Register Progress"
           oAuth={false}
           subTitle="Verify your account by checking your email"
         >
@@ -104,7 +104,7 @@ export default function Home() {
       ) : (
         <AuthLayout title="Sign up" subTitle="Let's get started with us">
           <div className="md:w-[450px] md:px-4">
-            <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-3">
+            {/* <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-3">
               <div className="relative">
                 <Input
                   label="First Name"
@@ -129,7 +129,7 @@ export default function Home() {
                 />
                 <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
               </div>
-            </div>
+            </div> */}
             <div className="relative">
               <Input
                 label="Email"
