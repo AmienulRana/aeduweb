@@ -15,6 +15,7 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -48,11 +49,10 @@ export default function Home() {
   const handleSubmit = async () => {
     setIsLoading(true);
     setError("");
-    setSuccess(true);
+    // setSuccess(true);
     try {
       const payload = {
-        first_name: firstName,
-        last_name: lastName,
+        username,
         email,
         password,
         passConfirm: confirmPassword,
@@ -117,19 +117,19 @@ export default function Home() {
                 />
                 <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
               </div>
-              <div className="relative">
-                <Input
-                  label="Last Name"
-                  placeholder="Input your last name"
-                  className="pl-10"
-                  value={lastName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setLastName(e.target.value)
-                  }
-                />
-                <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
-              </div>
             </div> */}
+            <div className="relative">
+              <Input
+                label="Username"
+                placeholder="Input your username"
+                className="pl-10"
+                value={username}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUsername(e.target.value)
+                }
+              />
+              <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
+            </div>
             <div className="relative">
               <Input
                 label="Email"
