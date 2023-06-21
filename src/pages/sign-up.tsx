@@ -118,7 +118,7 @@ export default function Home() {
                 <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
               </div>
             </div> */}
-            <div className="relative">
+            {/* <div className="relative">
               <Input
                 label="Username"
                 placeholder="Input your username"
@@ -129,7 +129,7 @@ export default function Home() {
                 }
               />
               <FiUser className="text-gray-400 absolute bottom-3.5 left-4" />
-            </div>
+            </div> */}
             <div className="relative">
               <Input
                 label="Email"
