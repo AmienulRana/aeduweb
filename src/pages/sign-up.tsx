@@ -66,7 +66,7 @@ export default function Home() {
       // setIsLoading(false);
     } catch (error: any) {
       console.log(error);
-      setError(error?.response?.data || "Failed to register account");
+      setError(error?.response?.data?.message || "Failed to register account");
       setIsLoading(false);
     }
   };
