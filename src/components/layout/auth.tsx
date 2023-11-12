@@ -103,7 +103,7 @@ export default function AuthLayout({
     <div className="flex min-h-screen">
       <div className="lg:w-[30%] md:w-[35%] relative md:block hidden justify-center py-6 max-w-[600px] text-white min-h-screen px-6 bg-primary">
         <Image
-          src="/aedu-white.svg"
+          src="/aedu-white.png"
           alt="logo aedu white"
           width={80}
           height={80}
