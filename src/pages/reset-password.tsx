@@ -9,6 +9,7 @@ import { TYPOGRAPHY } from "@/data/typhography";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { URL_API } from "@/config";
+import { useLanguageContext } from "@/context/LanguageContext";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -19,6 +20,7 @@ export default function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
+  const { language } = useLanguageContext();
 
   useEffect(() => {
     const tokenLocal = localStorage.getItem("token") || "";
@@ -55,15 +57,25 @@ export default function ResetPassword() {
   };
   return (
     <AuthLayout
-      title="Reset your password"
-      subTitle="Don't worry you can change the password"
+      title={
+        language === "EN" ? "Reset your password" : "Atur Ulang Kata Sandi"
+      }
+      subTitle={
+        language === "EN"
+          ? "Don't worry, you can change the password"
+          : "Jangan khawatir, Anda dapat mengubah kata sandi"
+      }
       oAuth={false}
     >
       <div className="md:w-[450px]">
         <div className="relative">
           <Input
-            label="Password"
-            placeholder="Input your new password here"
+            label={language === "EN" ? "Password" : "Kata Sandi"}
+            placeholder={
+              language === "EN"
+                ? "Input your new password here"
+                : "Masukkan kata sandi baru Anda di sini"
+            }
             className="pl-10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -84,8 +96,14 @@ export default function ResetPassword() {
         </div>
         <div className="relative">
           <Input
-            label="Confirm Password"
-            placeholder="Input your new confirm password here"
+            label={
+              language === "EN" ? "Confirm Password" : "Konfirmasi Kata Sandi"
+            }
+            placeholder={
+              language === "EN"
+                ? "Input your confirm password here"
+                : "Masukkan kata sandi konfirmasi Anda di sini"
+            }
             type={showPassword ? "text" : "password"}
             className="pl-10"
             value={confirmPassword}
@@ -106,7 +124,9 @@ export default function ResetPassword() {
         </div>
         {confirmPassword && password !== confirmPassword && (
           <p className="text-red-500 text-xs mt-2 mb-2">
-            {TYPOGRAPHY.INVALID_PASSWORD}
+            {language === "EN"
+              ? "Password and confirm password do not match"
+              : "Kata sandi dan konfirmasi kata sandi tidak cocok"}
           </p>
         )}
         {confirmPassword && password === confirmPassword ? (
@@ -117,14 +137,14 @@ export default function ResetPassword() {
             disabled={isLoading}
             onClick={() => handleSubmit()}
           >
-            {TYPOGRAPHY.CONTINUE}
+            {language === "EN" ? "Continue" : "Selanjutnya"}
           </button>
         ) : (
           <button
             disabled
             className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
           >
-            {TYPOGRAPHY.CONTINUE}
+            {language === "EN" ? "Continue" : "Selanjutnya"}
           </button>
         )}
         {errorMessage && (
@@ -133,7 +153,7 @@ export default function ResetPassword() {
         <p className="text-gray-400 mt-3">
           {TYPOGRAPHY.REMEMBER_PASSWORD}{" "}
           <Link href="/" className="text-primary underline">
-            {TYPOGRAPHY.SIGN_IN}
+            {language === "EN" ? "Sign in" : "Masuk"}
           </Link>
         </p>
       </div>

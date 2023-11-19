@@ -10,6 +10,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 import { useRouter } from "next/router";
 import { URL_API, URL_LEARNING_AEDU } from "@/config";
+import { useLanguageContext } from "@/context/LanguageContext";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { language } = useLanguageContext();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -65,12 +67,21 @@ export default function Home() {
     setIsLoading(false);
   };
   return (
-    <AuthLayout title="Sign in" subTitle="Login to your account">
+    <AuthLayout
+      title={language === "EN" ? "Sign in" : "Masuk"}
+      subTitle={
+        language === "EN" ? "Login to your account" : "Masuk ke akun Anda"
+      }
+    >
       <div className="md:w-[450px] px-4">
         <div className="relative">
           <Input
             label="Email"
-            placeholder="Input your email here"
+            placeholder={
+              language === "EN"
+                ? "Input your email here"
+                : "Masukkan alamat email Anda di sini"
+            }
             className="pl-10"
             value={email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -81,13 +92,19 @@ export default function Home() {
         </div>
         {!isValidEmail && (
           <p className="text-red-500 text-xs mt-2 mb-3">
-            {TYPOGRAPHY.INVALID_EMAIL}
+            {language === "EN"
+              ? "Please enter a valid email with allowed domains such as .com, .id, .co.id, or .io"
+              : "Harap masukkan alamat email yang valid dengan domain yang diperbolehkan seperti .com, .id, .co.id, atau .io"}
           </p>
         )}
         <div className="relative">
           <Input
-            label="Password"
-            placeholder="Input your password here"
+            label={language === "EN" ? "Password" : "Kata Sandi"}
+            placeholder={
+              language === "EN"
+                ? "Input your password here"
+                : "Masukkan kata sandi Anda di sini"
+            }
             className="pl-10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -111,7 +128,7 @@ export default function Home() {
             href="/forgot-password"
             className="text-primary underline cursor-pointer text-sm"
           >
-            {TYPOGRAPHY.FORGOT_PASSWORD}
+            {language === "EN" ? "Forgot Password?" : "Lupa Kata Sandi?"}
           </Link>
         </div>
         {isValidEmail && email && password ? (
@@ -122,23 +139,25 @@ export default function Home() {
             disabled={isLoading}
             onClick={() => handleSubmit()}
           >
-            {TYPOGRAPHY.SIGN_IN}
+            {language === "EN" ? "Sign in" : "Masuk"}
           </button>
         ) : (
           <button
             disabled
             className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
           >
-            {TYPOGRAPHY.SIGN_IN}
+            {language === "EN" ? "Sign in" : "Masuk"}
           </button>
         )}
         {errorMessage && (
           <p className="text-red-500 text-xs mt-2 mb-3">{errorMessage}!</p>
         )}
         <p className="text-gray-400 mt-3">
-          {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}
+          {language === "EN"
+            ? "Don't have an account?"
+            : "Belum memiliki akun?"}{" "}
           <Link href="/sign-up" className="text-primary underline">
-            {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
+            {language === "EN" ? "Create new Account" : "Buat Akun Baru"}
           </Link>
         </p>
       </div>

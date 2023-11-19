@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { MODE, URL_API, URL_LEARNING_AEDU } from "@/config";
 import { useRouter } from "next/router";
+import { useLanguageContext } from "@/context/LanguageContext";
+import { MdGTranslate } from "react-icons/md";
 
 interface AuthLayoutProp {
   children: React.ReactNode;
@@ -25,6 +27,7 @@ export default function AuthLayout({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const { language, setLanguage } = useLanguageContext();
   // if (session) {
   //   window.location.href =
   //     MODE === "dev" ? "http://localhost:3001" : "https://learning.aedu.id";
@@ -112,9 +115,15 @@ export default function AuthLayout({
         <div className="md:flex flex-col justify-center h-full">
           <div className="lg:mt-[60px] mb-10">
             <h1 className="lg:text-4xl md:text-2xl">
-              {TYPOGRAPHY.INTRODUCTION_TITLE}
+              {language === "EN"
+                ? "Start your professional journey with us."
+                : "Mulailah perjalanan profesional Anda bersama kami."}
             </h1>
-            <p className="mt-5">{TYPOGRAPHY.INTRODUCTION_DESC}</p>
+            <p className="mt-5">
+              {language === "EN"
+                ? "Discover tailored courses and a community of experts and learners to enhance your learning experience."
+                : "Temukan kursus yang disesuaikan dan komunitas para ahli dan pembelajar untuk memperluas pengalaman belajar Anda."}
+            </p>
           </div>
 
           <div className="relative">
@@ -129,6 +138,13 @@ export default function AuthLayout({
         </div>
       </div>
       <div className="flex-1 flex justify-center items-center">
+        <p
+          onClick={() => setLanguage(language === "ID" ? "EN" : "ID")}
+          className="absolute top-10 right-10 font-bold text-primary cursor-pointer flex items-center gap-2 text-sm"
+        >
+          {language}
+          <MdGTranslate className="text-gray-400" />
+        </p>
         <div className="min-w-[80%] md:min-w-max max-w-[1200px]">
           <p className="font-medium text-lg">{title}</p>
           <p className="text-gray-400 text-sm mb-5">{subTitle}</p>
@@ -144,11 +160,17 @@ export default function AuthLayout({
                   width={25}
                   height={25}
                 />
-                <p className="text-grey ml-3">{TYPOGRAPHY.GOOGLE_SIGNIN}</p>
+                <p className="text-grey ml-3">
+                  {language === "EN"
+                    ? "Continue with Google"
+                    : "Lanjutkan dengan Google"}
+                </p>
               </button>
               <div className="flex items-center gap-5 mt-5">
                 <span className="w-[45%] border border-gray-300" />
-                <p className="text-gray-400">{TYPOGRAPHY.OR}</p>
+                <p className="text-gray-400">
+                  {language === "EN" ? "OR" : "ATAU"}
+                </p>
                 <span className="w-[45%] border border-gray-300" />
               </div>
             </>

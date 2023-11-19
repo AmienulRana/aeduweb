@@ -7,6 +7,7 @@ import { TYPOGRAPHY } from "@/data/typhography";
 import axios from "axios";
 import { URL_API, URL_LEARNING_AEDU } from "@/config";
 import { useRouter } from "next/router";
+import { useLanguageContext } from "@/context/LanguageContext";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { language } = useLanguageContext();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputEmail = event.target.value;
@@ -55,36 +57,49 @@ export default function Home() {
     <>
       {success ? (
         <AuthLayout
-          title="Forgot Password?"
+          title={language === "EN" ? "Forgot Password?" : "Lupa Kata Sandi?"}
+          subTitle={
+            language === "EN"
+              ? "Verify your account by checking your email"
+              : "Verifikasi akun Anda dengan memeriksa email Anda"
+          }
           oAuth={false}
-          subTitle="Verify your account by checking your email"
         >
           <div className="md:w-[450px] md:px-4">
             <p className="text-center border border-primary rounded-md mt-3 text-sm text-primary py-2.5">
-              Please check{" "}
+              {language === "EN"
+                ? "Please check your email to verify reset your account."
+                : "Silakan periksa email Anda untuk memverifikasi pengaturan ulang akun Anda."}{" "}
               <a
-                href="https://gmail.com"
+                href="https://gmail.com" // Ganti dengan URL yang sesuai
                 target="_blank"
                 rel="noreferrer"
                 className="underline"
               >
-                your email
-              </a>{" "}
-              to verify reset your account.
+                {language === "EN" ? "your email" : "email Anda"}
+              </a>
             </p>
           </div>
         </AuthLayout>
       ) : (
         <AuthLayout
           oAuth={false}
-          title="Forgot Password?"
-          subTitle="No worries, we'll send you reset insturctions"
+          title={language === "EN" ? "Forgot Password?" : "Lupa Kata Sandi?"}
+          subTitle={
+            language === "EN"
+              ? "No worries, we'll send you reset instructions."
+              : "Tidak perlu khawatir, kami akan mengirimkan petunjuk pengaturan ulang."
+          }
         >
           <div className="md:w-[450px] px-4">
             <div className="relative">
               <Input
                 label="Email"
-                placeholder="Input your email here"
+                placeholder={
+                  language === "EN"
+                    ? "Input your email here"
+                    : "Masukkan alamat email Anda di sini"
+                }
                 className="pl-10"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -95,7 +110,9 @@ export default function Home() {
             </div>
             {!isValidEmail && (
               <p className="text-red-500 text-xs mt-2 mb-3">
-                {TYPOGRAPHY.INVALID_EMAIL}
+                {language === "EN"
+                  ? "Please enter a valid email with allowed domains such as .com, .id, .co.id, or .io"
+                  : "Harap masukkan alamat email yang valid dengan domain yang diperbolehkan seperti .com, .id, .co.id, atau .io"}
               </p>
             )}
             <div className="flex mt-1.5 justify-end">
@@ -103,7 +120,7 @@ export default function Home() {
                 href="/"
                 className="text-primary underline cursor-pointer text-sm"
               >
-                {TYPOGRAPHY.BACK_TO_LOGIN}
+                {language === "EN" ? "Back to login" : "Kembali ke login"}
               </Link>
             </div>
             {isValidEmail && email ? (
@@ -114,23 +131,25 @@ export default function Home() {
                 disabled={isLoading}
                 onClick={() => handleSubmit()}
               >
-                {TYPOGRAPHY.RESET_PASSWORD}
+                {language === "EN" ? "Reset Password" : "Atur Ulang Kata Sandi"}
               </button>
             ) : (
               <button
                 disabled
                 className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
               >
-                {TYPOGRAPHY.RESET_PASSWORD}
+                {language === "EN" ? "Reset Password" : "Atur Ulang Kata Sandi"}
               </button>
             )}
             {errorMessage && (
               <p className="text-red-500 text-xs mt-2 mb-3">{errorMessage}!</p>
             )}
             <p className="text-gray-400 mt-3">
-              {TYPOGRAPHY.NOT_HAVE_ACCOUNT}{" "}
+              {language === "EN"
+                ? "Don't have an account?"
+                : "Belum memiliki akun?"}{" "}
               <Link href="/sign-up" className="text-primary underline">
-                {TYPOGRAPHY.CREATE_NEW_ACCOUNT}
+                {language === "EN" ? "Create new Account" : "Buat Akun Baru"}
               </Link>
             </p>
           </div>

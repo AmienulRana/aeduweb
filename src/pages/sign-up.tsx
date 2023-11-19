@@ -9,6 +9,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 import { URL_API } from "@/config";
 import { useRouter } from "next/router";
+import { useLanguageContext } from "@/context/LanguageContext";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -24,6 +25,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const { language } = useLanguageContext();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,27 +84,39 @@ export default function Home() {
     <>
       {success ? (
         <AuthLayout
-          title="Register Progress"
+          title={language === "EN" ? "Register Progress" : "Proses Pendaftaran"}
           oAuth={false}
-          subTitle="Verify your account by checking your email"
+          subTitle={
+            language === "EN"
+              ? "Verify your account by checking your email"
+              : "Verifikasi akun Anda dengan memeriksa email Anda"
+          }
         >
           <div className="md:w-[450px] md:px-4">
             <p className="text-center border border-primary rounded-md mt-3 text-sm text-primary py-2.5">
-              Please check{" "}
+              {language === "EN"
+                ? "Please check your email to verify your account."
+                : "Silakan cek email Anda untuk verifikasi akun."}{" "}
               <a
                 href="https://gmail.com"
                 target="_blank"
                 rel="noreferrer"
                 className="underline"
               >
-                your email
-              </a>{" "}
-              to verify your account.
+                {language === "EN" ? "your email" : "email Anda"}
+              </a>
             </p>
           </div>
         </AuthLayout>
       ) : (
-        <AuthLayout title="Sign up" subTitle="Let's get started with us">
+        <AuthLayout
+          title={language === "EN" ? "Sign up" : "Daftar"}
+          subTitle={
+            language === "EN"
+              ? "Let's get started with us"
+              : "Ayo mulai dengan kami"
+          }
+        >
           <div className="md:w-[450px] md:px-4">
             {/* <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-3">
               <div className="relative">
@@ -132,8 +146,12 @@ export default function Home() {
             </div> */}
             <div className="relative">
               <Input
-                label="Email"
-                placeholder="Input your email here"
+                label={"Email"}
+                placeholder={
+                  language === "EN"
+                    ? "Input your email here"
+                    : "Masukkan alamat email Anda di sini"
+                }
                 className="pl-10"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -142,16 +160,23 @@ export default function Home() {
               />
               <FiMail className="text-gray-400 absolute bottom-3.5 left-4" />
             </div>
+
             {!isValidEmail && (
               <p className="text-red-500 text-xs px-4 mt-2">
-                Please enter a valid email with allowed domains such as .com,
-                .id, .co.id, or .io
+                {language === "EN"
+                  ? "Please enter a valid email with allowed domains such as .com, .id, .co.id, or .io"
+                  : "Harap masukkan alamat email yang valid dengan domain yang diperbolehkan seperti .com, .id, .co.id, atau .io"}
               </p>
             )}
+
             <div className="relative">
               <Input
-                label="Password"
-                placeholder="Input your password here"
+                label={language === "EN" ? "Password" : "Kata Sandi"}
+                placeholder={
+                  language === "EN"
+                    ? "Input your password here"
+                    : "Masukkan kata sandi anda disini"
+                }
                 className="pl-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -172,8 +197,16 @@ export default function Home() {
             </div>
             <div className="relative">
               <Input
-                label="Confirm Password"
-                placeholder="Input your confirm password here"
+                label={
+                  language === "EN"
+                    ? "Confirm Password"
+                    : "Konfirmasi Kata Sandi"
+                }
+                placeholder={
+                  language === "EN"
+                    ? "Input your confirm password here"
+                    : "Masukkan kata sandi konfirmasi Anda di sini"
+                }
                 type={showPassword ? "text" : "password"}
                 className="pl-10"
                 value={confirmPassword}
@@ -194,9 +227,12 @@ export default function Home() {
             </div>
             {confirmPassword && password !== confirmPassword && (
               <p className="text-red-500 text-xs mt-2 mb-2">
-                Password and confirm password do not match
+                {language === "EN"
+                  ? "Password and confirm password do not match"
+                  : "Kata sandi dan konfirmasi kata sandi tidak cocok"}
               </p>
             )}
+
             {error && <p className="text-red-500 text-xs mt-2 mb-2">{error}</p>}
             {isValidEmail && email && password && confirmPassword ? (
               <button
@@ -206,20 +242,22 @@ export default function Home() {
                 disabled={isLoading}
                 onClick={() => handleSubmit()}
               >
-                Sign up
+                {language === "EN" ? "Sign up" : "Daftar"}
               </button>
             ) : (
               <button
                 disabled
                 className="text-center opacity-70 font-bold text-white w-full mt-6 rounded-md duration-100 bg-primary py-3 px-4"
               >
-                Sign up
+                {language === "EN" ? "Sign up" : "Daftar"}
               </button>
             )}
             <p className="text-gray-400 mt-3">
-              Already have a account?{" "}
+              {language === "EN"
+                ? "Already have an account?"
+                : "Sudah memiliki akun?"}{" "}
               <Link href="/" className="text-primary underline">
-                Sign in
+                {language === "EN" ? "Sign in" : "Masuk"}
               </Link>
             </p>
           </div>
