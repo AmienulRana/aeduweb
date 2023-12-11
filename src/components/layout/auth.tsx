@@ -108,8 +108,8 @@ export default function AuthLayout({
         <Image
           src="/aedu-shadow.png"
           alt="logo aedu white"
-          width={120}
-          height={120}
+          width={140}
+          height={140}
           className="absolute top-5 left-4"
         />
         <div className="md:flex flex-col justify-center h-full">
